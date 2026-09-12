@@ -24,11 +24,11 @@
   - [x] `03-async-local-storage`: 全链路上下文追踪与请求生命周期治理 (`AsyncLocalStorage`)
   - [x] `04-process-exit-and-uncaught`: 未捕获异常防御与进程优雅退出机制
 
-- [ ] **阶段 03: 文件系统、Buffer 与流式数据处理 (4/4)**
-  - [ ] `01-fs-and-path-basics`: 现代文件与路径操作最佳实践 (`node:fs/promises`, `node:path`)
-  - [ ] `02-buffer-and-binary`: 二进制数据与 Buffer 内存切片原理
-  - [ ] `03-streams-and-backpressure`: 可读流、可写流与背压机制深入剖析
-  - [ ] `04-web-streams-interop`: 现代 Web Streams 与 Node.js 原生流互通
+- [x] **阶段 03: 文件系统、Buffer 与流式数据处理 (4/4)**
+  - [x] `01-fs-and-path-basics`: 现代文件与路径操作最佳实践 (`node:fs/promises`, `node:path`)
+  - [x] `02-buffer-and-binary`: 二进制数据与 Buffer 内存切片原理
+  - [x] `03-streams-and-backpressure`: 可读流、可写流与背压机制深入剖析
+  - [x] `04-web-streams-interop`: 现代 Web Streams 与 Node.js 原生流互通
 
 - [ ] **阶段 04: 网络编程与实时通信通信 (3/3)**
   - [ ] `01-native-http-server`: 零外部依赖原生 HTTP 服务与基础路由封装

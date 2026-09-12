@@ -38,5 +38,11 @@ run-02:
 	pnpm exec tsx 02-event-loop-and-async/03-async-local-storage/main.ts
 	pnpm exec tsx 02-event-loop-and-async/04-process-exit-and-uncaught/main.ts
 
+run-03:
+	pnpm exec tsx 03-fs-buffer-and-streams/01-fs-and-path-basics/main.ts
+	pnpm exec tsx 03-fs-buffer-and-streams/02-buffer-and-binary/main.ts
+	pnpm exec tsx 03-fs-buffer-and-streams/03-streams-and-backpressure/main.ts
+	pnpm exec tsx 03-fs-buffer-and-streams/04-web-streams-interop/main.ts
+
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts
