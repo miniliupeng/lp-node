@@ -1,17 +1,19 @@
 # 阶段 07: 现代后端框架实战入门
 
-从早期简陋的 Express / Koa，到现代以极致性能著称的 **Fastify**，再到以企业级架构和设计模式为核心的 **NestJS**，Node.js 已经完成了从“玩具脚本”向“支撑金融级架构”的蜕变。本阶段我们将剖析这两大现代主流框架的核心灵魂。
+从早期简陋的 Express / Koa，到现代以极致性能著称的 **Fastify**，再到以企业级架构和设计模式为核心的 **NestJS**，Node.js 框架生态已经全面走向工业化与规范化。本阶段我们将剖析这两大现代主流框架的核心底层架构。
 
 ---
 
-## ☕ 生活化心智：超跑引擎与模块化大厦
+## 💡 核心工程心智与框架设计哲学
 
-1. **Fastify (极致性能与插件化超跑)**：
-   - 就像**一辆轻量级 F1 赛车**。它为了追求吞吐量极限（比 Express 快 2~5 倍），在底层摒弃了传统的全局中间件脏修改，采用严密的**插件作用域隔离（Plugin Encapsulation）**，配合 JIT 模式编译的高速 JSON 序列化引擎。
-2. **NestJS (企业级 IoC 与 AOP 模块化大厦)**：
-   - 就像**由乐高预制构件组装的现代化摩天大楼**（参考了 Spring Boot 的优秀架构哲学）。
-   - **依赖注入 (IoC)**：不用你在每个类里手动 `new DatabaseService()`，而是由中央管家统一生产、组装并自动送货上门；
-   - **面向切面编程 (AOP)**：日志记录、权限鉴权、异常捕获就像大楼的安保巡检通道，不侵入具体住户房间（业务方法），横向切入执行。
+1. **Fastify 性能架构与插件上下文封装 (Encapsulation)**：
+   - 掌握 Fastify 极速吞吐的基石：基于前缀压缩基数树的 `find-my-way` 路由查找，以及基于 JSON Schema 预编译纯字符串拼接的 `fast-json-stringify` 序列化；
+   - 深入掌握 Fastify 插件上下文树（Context Tree）模型：单向继承父级能力，默认隔离子级属性，杜绝全局状态污染；
+   - 掌握使用 `fastify-plugin`（`fp`）跳过子作用域创建以实现公共基础设施全局提升。
+2. **NestJS 架构模式：控制反转 (IoC) 与面向切面 (AOP)**：
+   - 掌握控制反转容器（IoC Container）与构造器依赖注入（DI），实现业务类与底层实现的彻底解耦与单元测试极速 Mock；
+   - 掌握 TypeScript 装饰器元数据（`reflect-metadata`）在 `@Injectable()` 中的编译期类型提取机制；
+   - 深入理解 NestJS 七层请求管道流转：Middleware -> Guard -> Interceptor (Pre) -> Pipe -> Controller -> Interceptor (Post) -> Exception Filter。
 
 ---
 

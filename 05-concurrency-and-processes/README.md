@@ -1,18 +1,22 @@
 # 阶段 05: 并发模型、多进程与工作线程
 
-“Node.js 只能用一个 CPU 核心，无法做 CPU 密集型任务？”——这是对现代 Node.js 最大的误解。Node.js 提供了完整的**多进程（child_process / cluster）**与**真正的多线程（worker_threads）**原语来榨干服务器的全部硬件性能。
+Node.js 主执行线程为单线程，但并不意味着它无法压榨多核算力或无法胜任 CPU 密集型任务。Node.js 提供了完备的**多进程（child_process / cluster）**与**真正的多线程（worker_threads）**原语体系。
 
 ---
 
-## ☕ 生活化心智：总店与分工矩阵
+## 💡 核心工程心智与并发架构
 
-1. **child_process (子进程)**：
-   - 就像**外包协同公司**。Node.js 自己不擅长处理音视频压缩（如 ffmpeg）或调用系统 Git 命令，于是通过子进程唤起外部独立的 C/C++ 二进制程序，干完活把结果通过管道传回来。
-2. **Cluster (多进程集群)**：
-   - 就像**在全国开 8 家独立分店**（利用 8 核 CPU）。每个分店都是一个独立的 Node.js 进程，拥有自己独立的 V8 虚拟机和内存空间。
-   - 主店（Master/Primary）负责接电话并把客人按轮询（Round-Robin）分流给各个分店。哪怕某一家分店突然停电倒闭，其余 7 家店依然正常营业，主店还能瞬间再开一家新店补上。
-3. **worker_threads (工作线程)**：
-   - 就像**同一家店里的多个专属工匠**。他们同属于一个进程，共享部分内存（SharedArrayBuffer），专门用来在后厨秘密研磨极耗费体力的咖啡配方（CPU 密集型复杂运算），绝不占用前台收银服务员（主线程事件循环）哪怕 1 毫秒的时间！
+1. **子进程衍生与跨进程 IPC 管道**：
+   - 区分四大 API：`spawn`（基础流式处理，防 `maxBuffer` 溢出）、`exec`（Shell 字符串执行，具注入与缓冲上限风险）、`execFile`（直接执行二进制，安全高效）、`fork`（专属 Node.js 实例，自带全双工 IPC 通道）；
+   - 掌握 Unix Domain Socket 与 Windows Named Pipe 在跨进程通信中的底层映射，明确进程间内存物理隔离本质。
+2. **Cluster 多进程集群与高可用架构**：
+   - Master-Worker (Primary-Worker) 拓扑结构，Primary 统一监听外部端口，通过操作系统文件描述符传递（File Descriptor Passing）将网络 Socket 分发给各 Worker 进程；
+   - 掌握默认的 Round-Robin（轮询调度）算法优势，避免操作系统抢占引发的惊群效应；
+   - 监听 Worker `exit` 事件实现故障快速自愈拉起，实践零停机滚动更新（Zero-Downtime Reload）。
+3. **worker_threads 真正的多线程并行计算**：
+   - 同一进程内的独立 OS 线程，各自拥有独立的 V8 Isolate 与事件循环；
+   - 专用于处理图像处理、密码学哈希、音视频压缩等 CPU 密集任务，保持主线程事件循环 0 毫秒卡顿；
+   - 掌握结构化克隆传参、`Transferable Objects` 纳秒级所有权转移，以及 `SharedArrayBuffer` 配合 `Atomics` 原子操作的底层机制。
 
 ---
 

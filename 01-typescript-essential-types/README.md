@@ -1,20 +1,25 @@
 # 阶段 01: TypeScript 核心类型系统进阶
 
-在 Node.js 服务端开发中，TypeScript 绝不仅仅是“在 JS 变量后面随便写个 `: string` 或 `: any`”。如果缺乏扎实的类型心智，TS 就会退化成毫无安全感可言的 `anyScript`。本阶段将彻底夯实日常高频与面试必问的四大类型原语。
+在 Node.js 服务端开发中，TypeScript 绝不仅仅是简单的变量类型注解。缺乏扎实的类型心智会导致 TS 退化为难以维护的 `anyScript`。本阶段将彻底夯实日常高频与面试必考的四大类型原语。
 
 ---
 
-## ☕ 生活化心智：图纸与实体物品
+## 💡 核心工程心智与类型设计
 
-1. **原始类型 vs 引用模型**：
-   - 原始类型（number, string, boolean）像**印章盖印**：你印一份给我，我在我的纸上涂改，绝不会影响你原版纸上的字。
-   - 引用类型（Object, Array）像**共享云文档链接**：我发一个链接给你，你在里面删掉一行字，我电脑屏幕上的文档内容瞬间同步被删！
-2. **类型收窄 (Narrowing) 与守卫 (Guards)**：
-   - 就像海关安检通道。当一个包裹被标记为 `unknown` 或包含多种可能时，通过 `typeof`、`instanceof` 或自定义安检员（`is` 谓词函数），逐层过滤排除疑点，直到在安全区内拿到百分之百确定的类型。
-3. **工具类型 (Utility Types)**：
-   - 就像工业级乐高模具。我们不需要为“创建用户”、“更新用户”、“公开用户详情”分别重复手写 3 套结构几乎相同的接口，而是通过 `Partial`、`Pick`、`Omit` 快速基于基类派生。
-4. **satisfies 运算符与 as const**：
-   - 就像验金石。`as const` 把变量冻结为不可篡改的常量字面量；而 `satisfies` 既确保对象满足特定规约，又**保留自身最精确的字面量推断**，彻底解决声明类型丢失属性自动补全的世纪痛点。
+1. **原始类型 vs 引用内存模型**：
+   - 原始类型（number, string, boolean 等）固定分配于调用栈（Stack），传参及赋值遵循纯粹的值拷贝（Pass-by-Value）；
+   - 引用类型（Object, Array 等）实体存放在堆内存（Heap），栈中仅保存物理指针引用；
+   - 掌握浅拷贝（展开运算符）的共享引用副作用，全面采用现代标准 `structuredClone()` 实现深度物理隔离。
+2. **类型收窄 (Narrowing) 与类型守卫 (Type Guards)**：
+   - 依据控制流分析（Control Flow Analysis），通过 `typeof`、`instanceof`、`in` 操作符将宽泛联合类型缩减为具体子类型；
+   - 编写自定义类型谓词函数（`arg is TargetType`），避免危险的不安全强制类型断言（`as`）；
+   - 利用可辨识联合（Discriminated Unions）与 `never` 类型实现编译期穷尽性检查（Exhaustiveness Checking）。
+3. **工具类型 (Utility Types) 派生体系**：
+   - 基于单一基准实体（Single Source of Truth），通过 `Partial`、`Required`、`Readonly`、`Pick`、`Omit`、`Record` 实现业务 DTO（数据传输对象）的按需动态派生，杜绝重复手写冗余接口；
+   - 掌握 `ReturnType` 与 `Parameters` 利用 `infer` 关键字反向提取函数签名的底层原理。
+4. **satisfies 运算符与常量断言 (as const)**：
+   - `as const` 将变量递归收窄为只读字面量类型，消除自动类型宽化（Type Widening）；
+   - `satisfies` 在验证表达式完全符合指定类型契约的同时，**保留变量原本精确的字面量推导与智能补全**，完美解决类型安全与开发体验的矛盾。
 
 ---
 

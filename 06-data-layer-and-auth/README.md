@@ -1,18 +1,23 @@
 # 阶段 06: 数据治理与安全身份认证
 
-在业务系统的核心，**数据**是资产，而**鉴权**是护城河。本阶段我们将掌握如何建立严密的数据输入防御层、如何使用 Node.js 原生嵌入式数据库完成持久化，以及如何搞透现代 Web 认证的两大基石：Cookie/Session 与 JWT 无状态令牌。
+在业务系统的核心，数据完整性与权限边界是不可动摇的底线。本阶段我们将掌握如何建立严密的数据输入防御层、如何使用 Node.js 原生嵌入式数据库完成持久化，以及如何搞透现代 Web 认证的两大基石：Cookie/Session 与 JWT 无状态令牌。
 
 ---
 
-## ☕ 生活化心智：银行金库与通行证
+## 💡 核心工程心智与安全防御
 
-1. **Zod 运行时校验**：
-   - 就像**银行门口的安检机与身份证扫描仪**。外面的入参数据无论怎么声明，进入系统前必须过安检。一旦发现缺损、越界或格式不对，立即在安检闸口报警拦截，绝不放进内网污染数据库。
-2. **node:sqlite (原生嵌入式数据库)**：
-   - 就像**办公室抽屉里的加密离线账本**。不再需要为本地测试启动笨重的 MySQL/PostgreSQL 容器，Node.js 22.5+ 原生内置了 SQLite 支持，支持毫秒级内存建表、预编译语句与事务回滚。
-3. **Cookie / Session vs JWT**：
-   - **Cookie / Session** 就像**健身房的存包柜手牌**：前台（服务端）在总台记账你的名字，只给你一把写着编号的手牌（SessionID）。每次来前台核对账本，服务端能随时单方面把你的手牌注销拉黑。
-   - **JWT (JSON Web Token)** 就像**盖了防伪钢印的纸质火车票**：车票上印着你的车次、身份证号（Payload）和防伪印章（Signature）。列车员（分布式微服务网关）只要摸一下钢印是否属实，不需要打电话回车站总机查账本，就能确认你合法登车。
+1. **运行时数据模式校验 (Runtime Schema Validation)**：
+   - 明确 TypeScript 静态类型在编译后被完全擦除（Type Erasure）的事实；
+   - 利用 Zod 进行运行时边界数据拦截与自动清洗，杜绝非法或恶意伪造字段穿透；
+   - 掌握 `safeParse` 结果模式提取结构化错误，配合 `z.infer` 实现运行时 Schema 与编译期静态类型双向无缝同步。
+2. **原生嵌入式数据库 (node:sqlite)**：
+   - Node.js 22.5+ 原生内置 `node:sqlite`（`DatabaseSync`），彻底终结第三方驱动的本地 C++ 编译（`node-gyp`）痛点；
+   - 掌握预编译语句（Prepared Statements）将 SQL 结构编译与参数插槽物理分离的本质，从根本上杜绝 SQL 注入；
+   - 理解 WAL（Write-Ahead Logging）预写日志模式在并发读写场景下的不互斥吞吐优势。
+3. **身份鉴权基石：Session vs JWT**：
+   - **Cookie / Session（有状态认证）**：服务端维护会话，配置 `HttpOnly` 防范 XSS 窃取，配置 `SameSite=Lax/Strict` 拦截 CSRF 跨站伪造；
+   - **JWT（无状态令牌）**：标准三段式（Header.Payload.Signature），采用 HMAC-SHA256 与 `timingSafeEqual` 防范篡改与时序侧信道攻击；
+   - 掌握双 Token（短期 Access Token + 长期 Refresh Token）在保障微服务无状态高性能的同时实现主动吊销。
 
 ---
 

@@ -1,17 +1,24 @@
 # 阶段 08: AI 时代原语与收官实战
 
-随着生成式 AI 与大语言模型（LLM）的全面爆发，后端开发正在经历一场前所未有的重构。现代 Node.js 工程师不仅要精通传统并发与流式处理，更要掌握 AI 时代的两大核心标准原语：**MCP (Model Context Protocol)** 与 **SSE (Server-Sent Events) 流式推送**，并在最终的综合收官实战中完成所有核心技能的集大成演练。
+随着大语言模型（LLM）与智能体（Agent）架构的全面普及，现代 Node.js 工程师不仅需要掌握传统网络与并发流控，更要熟练运用 AI 时代的两大核心标准原语：**MCP (Model Context Protocol)** 与 **SSE (Server-Sent Events) 流式推送**，并在最终的综合收官实战中完成全课程技能的工程化集成。
 
 ---
 
-## ☕ 生活化心智：智能管家与打字机
+## 💡 核心工程心智与前沿原语
 
-1. **MCP (Model Context Protocol, 模型上下文协议)**：
-   - 就像**给 AI 大脑安装标准通用的 USB 接口**。以前每个大模型接入外部数据库、搜索工具都需要各自适配一套私有 SDK；Anthropic 发起的 MCP 标准基于 JSON-RPC 2.0，让任何 AI 客户端（Claude, Cursor, Antigravity）都能以完全统一的规范即插即用调用后端工具。
-2. **SSE (Server-Sent Events) AI 流式输出**：
-   - 就像**老式电报机或打字机**。大模型生成回答是一个字一个字（Token）蹦出来的。如果等它生成 2000 字再全部返回，用户需要在屏幕前傻等 30 秒；通过基于单向 HTTP 长连接的 SSE，大模型每生成一个 Token，后端立即以 `data: ...\n\n` 格式推送给前端，实现极度丝滑的打字机特效。
-3. **综合收官引擎 (Capstone Pipeline)**：
-   - 这是整套教程的**毕业典礼**。我们将把 TypeScript 强类型契约、AsyncLocalStorage 全链路追踪、Stream 背压流控与异步异常防御融汇于一个高并发流式任务治理小引擎中。
+1. **Model Context Protocol (MCP, 模型上下文协议)**：
+   - Anthropic 发起的大模型与上下文工具解耦的行业开放协议，相当于大模型领域的“语言服务器协议 LSP”；
+   - 统一基于 **JSON-RPC 2.0** 报文规范，标准化 Tools（工具执行）、Resources（只读上下文）与 Prompts（提示模板）；
+   - 支持 `stdio`（本地 IDE/桌面端集成，零网络端口暴露）与 `SSE/HTTP`（云端分布式微服务调用）。
+2. **Server-Sent Events (SSE) 流式打字机推送**：
+   - 基于标准 HTTP 的单向流式推送协议（`text/event-stream`），比全双工 WebSocket 更轻量、代理穿透性更好；
+   - 掌握双换行 `\n\n` 作为应用层事件帧定界符的协议本质；
+   - 掌握客户端 `AbortController` 取消请求与服务端 `req.on('close')` 监听联动，避免客户端退出后大模型推理 GPU 算力与 Token 浪费。
+3. **综合收官：高并发流式任务编排流水线**：
+   - 融合 TypeScript 严格契约类型；
+   - 结合 `AsyncLocalStorage` 贯穿跨流全链路上下文与 `traceId` 追踪；
+   - 采用 `stream.pipeline` 实现自适应背压控制与物理零资源泄漏；
+   - 践行 Go 风格 Safe 元组容灾，构建高可用、高性能的现代任务治理引擎。
 
 ---
 

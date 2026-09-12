@@ -1,20 +1,25 @@
 # 阶段 03: 文件系统、Buffer 与流式数据处理
 
-在服务端开发中，我们不可避免要处理文件上传、日志落地、音视频转码和海量报表导出。如果处理不当，几十兆的文件就足以让 Node.js 进程内存被打爆（OOM）。本阶段我们将掌握 Node.js 处理二进制与海量数据的三大杀手锏：**fs/promises、Buffer 与 Stream 背压**。
+在服务端高并发场景中，处理大文件、音视频转码或数据报表导出时，若缺乏严谨的内存与流控心智，极易引发 V8 堆内存溢出（OOM）或磁盘数据半写损坏。本阶段将全面攻克 Node.js 处理二进制与海量数据的三大杀手锏：**fs/promises、Buffer 与 Stream 背压**。
 
 ---
 
-## ☕ 生活化心智：大运河与水管工程
+## 💡 核心工程心智与底层 I/O 模型
 
-1. **fs/promises (现代文件系统)**：
-   - 就像现代化智能快递柜。全面告别回调地狱（Callback Hell）和同步阻塞版（`readFileSync`，会导致整个服务器卡死），用 Promise 优雅操作文件读写、目录递归与文件原子重命名。
-2. **Buffer (二进制内存块)**：
-   - 就像**固定容量的储物箱**。JavaScript 字符串无法直接表达底层的原始字节（0 与 1），Buffer 是 V8 堆外直接向 C++ 申请的原始物理内存，专门存放网络数据包或图片字节。
-   - **切片陷阱**：用 `subarray()` 切割 Buffer 并不是复制了一份新数据，而是给了你一块**指向同一块内存的窥视镜**，修改切片会直接修改原 Buffer！
-3. **Stream 与背压 (Backpressure)**：
-   - 就像**给水管安装带浮阀的水箱**。上游供水极快（100MB/s 读文件），下游水龙头出水极慢（1MB/s 写磁盘）。如果没有背压，水箱瞬间溢出（内存 OOM）；有了背压机制，下游水龙头一旦被塞满，就会拉动拉绳通知上游“暂停供水（pause）”，等消化完再通知“继续供水（drain）”。
-4. **Web Streams 与 Node.js 原生流互通**：
-   - 就像**统一接口的国际通用插头**。Node 历史悠久的 Classic Streams 与现代浏览器/Fetch 规范的 `ReadableStream` 终于可以无缝转换对接。
+1. **现代异步文件系统与原子写入**：
+   - 彻底摒弃同步阻塞 API（如 `fs.readFileSync`，会物理级挂起事件循环主线程），全面采用 `node:fs/promises`；
+   - 采用 Write-Rename 模式实现文件系统级**原子写入（Atomic File Write）**，杜绝服务崩溃或断电导致的目标文件截断与半写损坏态。
+2. **Buffer 二进制与堆外内存机制**：
+   - Buffer 是 Node.js 直接向操作系统申请的**固定大小 C++ 堆外连续物理内存（Off-Heap）**，绕开 V8 GC 频繁回收暂停开销；
+   - 掌握 `Buffer.alloc`（安全清零）与 `Buffer.allocUnsafe`（未清零脏内存风险）；
+   - 深入理解 `Buffer.prototype.subarray()` 的共享内存视图特性，避免持有切片阻碍整个大 Buffer 回收造成的隐蔽内存泄漏。
+3. **Stream 流式传输与背压调控 (Backpressure)**：
+   - 当上游生产/读取速率远高于下游消费/写入速率时，通过 `highWaterMark` 阈值与 `write() === false` 信号触发背压，通知上游暂停生产；
+   - 监听 `drain` 事件在下游缓冲区清空后恢复读取，将内存维持在恒定低水位；
+   - 淘汰存在句柄泄漏隐患的旧版 `.pipe()`，全量采用自动化生命周期管理的 `stream.pipeline`。
+4. **WHATWG Web Streams 标准互通**：
+   - 现代云原生与边缘计算（Edge Runtime）通用标准；
+   - 熟练运用 `ReadableStream`、`TransformStream` 以及官方互通桥梁（`Readable.fromWeb` / `Readable.toWeb`）实现与 fetch API 及大模型流式响应的无缝对接。
 
 ---
 
