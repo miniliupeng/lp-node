@@ -18,11 +18,11 @@
   - [x] `03-utility-types-practical`: 高频实用工具类型实战 (`Partial`, `Pick`, `Omit`, `Record`)
   - [x] `04-satisfies-and-const`: `satisfies` 运算符与 `as const` 强类型推断
 
-- [ ] **阶段 02: 异步基石、事件循环与异常治理 (4/4)**
-  - [ ] `01-event-loop-and-timers`: Event Loop 宏任务与微任务执行顺序实战验证
-  - [ ] `02-async-await-error-handling`: 优雅处理异步错误与 Promise 状态流转
-  - [ ] `03-async-local-storage`: 全链路上下文追踪与请求生命周期治理 (`AsyncLocalStorage`)
-  - [ ] `04-process-exit-and-uncaught`: 未捕获异常防御与进程优雅退出机制
+- [x] **阶段 02: 异步基石、事件循环与异常治理 (4/4)**
+  - [x] `01-event-loop-and-timers`: Event Loop 宏任务与微任务执行顺序实战验证
+  - [x] `02-async-await-error-handling`: 优雅处理异步错误与 Promise 状态流转
+  - [x] `03-async-local-storage`: 全链路上下文追踪与请求生命周期治理 (`AsyncLocalStorage`)
+  - [x] `04-process-exit-and-uncaught`: 未捕获异常防御与进程优雅退出机制
 
 - [ ] **阶段 03: 文件系统、Buffer 与流式数据处理 (4/4)**
   - [ ] `01-fs-and-path-basics`: 现代文件与路径操作最佳实践 (`node:fs/promises`, `node:path`)

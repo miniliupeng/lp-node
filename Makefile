@@ -32,5 +32,11 @@ run-01:
 	pnpm exec tsx 01-typescript-essential-types/03-utility-types-practical/main.ts
 	pnpm exec tsx 01-typescript-essential-types/04-satisfies-and-const/main.ts
 
+run-02:
+	pnpm exec tsx 02-event-loop-and-async/01-event-loop-and-timers/main.ts
+	pnpm exec tsx 02-event-loop-and-async/02-async-await-error-handling/main.ts
+	pnpm exec tsx 02-event-loop-and-async/03-async-local-storage/main.ts
+	pnpm exec tsx 02-event-loop-and-async/04-process-exit-and-uncaught/main.ts
+
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts
