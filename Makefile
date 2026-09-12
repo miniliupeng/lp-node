@@ -1,4 +1,4 @@
-.PHONY: help check lint run-00 run-01 run-02 run-03 run-04 run-05 run-06 run-07 run-08 test
+.PHONY: help check lint run-00 run-01 run-02 run-03 run-04 run-05 run-06 run-07 run-08 run-all test
 
 help:
 	@echo "Available commands:"
@@ -13,6 +13,7 @@ help:
 	@echo "  make run-06   - Run all Phase 06 examples"
 	@echo "  make run-07   - Run all Phase 07 examples"
 	@echo "  make run-08   - Run all Phase 08 examples"
+	@echo "  make run-all  - Run all Phases in sequence"
 
 check:
 	pnpm exec tsc --noEmit
@@ -62,6 +63,13 @@ run-06:
 run-07:
 	pnpm exec tsx 07-modern-web-frameworks/01-fastify-core-and-plugins/main.ts
 	pnpm exec tsx 07-modern-web-frameworks/02-nestjs-ioc-and-aop/main.ts
+
+run-08:
+	pnpm exec tsx 08-ai-primitives-and-capstone/01-mcp-server-protocol/main.ts
+	pnpm exec tsx 08-ai-primitives-and-capstone/02-sse-ai-streaming/main.ts
+	pnpm exec tsx 08-ai-primitives-and-capstone/03-capstone-pipeline-orchestration/main.ts
+
+run-all: run-00 run-01 run-02 run-03 run-04 run-05 run-06 run-07 run-08
 
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts

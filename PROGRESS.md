@@ -49,7 +49,7 @@
   - [x] `01-fastify-core-and-plugins`: Fastify 极速入门与插件封装思想
   - [x] `02-nestjs-ioc-and-aop`: NestJS 核心思想：依赖注入 (IoC) 与面向切面 (AOP)
 
-- [ ] **阶段 08: AI 时代原语与收官实战 (3/3)**
-  - [ ] `01-mcp-server-protocol`: 打造轻量 MCP (Model Context Protocol) 标准工具服务
-  - [ ] `02-sse-ai-streaming`: Server-Sent Events (SSE) 大模型流式输出推送
-  - [ ] `03-capstone-pipeline-orchestration`: 综合收官：高并发流式任务编排与治理引擎
+- [x] **阶段 08: AI 时代原语与收官实战 (3/3)**
+  - [x] `01-mcp-server-protocol`: 打造轻量 MCP (Model Context Protocol) 标准工具服务
+  - [x] `02-sse-ai-streaming`: Server-Sent Events (SSE) 大模型流式输出推送
+  - [x] `03-capstone-pipeline-orchestration`: 综合收官：高并发流式任务编排与治理引擎
