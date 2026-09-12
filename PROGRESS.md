@@ -35,10 +35,10 @@
   - [x] `02-tcp-socket-basics`: TCP Socket 基础与粘包半包场景初探
   - [x] `03-websocket-heartbeat`: WebSocket 长连接机制与心跳重连保活
 
-- [ ] **阶段 05: 并发模型、多进程与工作线程 (3/3)**
-  - [ ] `01-child-process-basics`: 子进程执行外部命令与跨进程通信 (`child_process`)
-  - [ ] `02-cluster-multicore`: 多核 CPU 算力压榨与 Cluster 集群平滑重启
-  - [ ] `03-worker-threads-cpu-bound`: 工作线程处理 CPU 密集型任务 (`worker_threads`)
+- [x] **阶段 05: 并发模型、多进程与工作线程 (3/3)**
+  - [x] `01-child-process-basics`: 子进程执行外部命令与跨进程通信 (`child_process`)
+  - [x] `02-cluster-multicore`: 多核 CPU 算力压榨与 Cluster 集群平滑重启
+  - [x] `03-worker-threads-cpu-bound`: 工作线程处理 CPU 密集型任务 (`worker_threads`)
 
 - [ ] **阶段 06: 数据治理与安全身份认证 (3/3)**
   - [ ] `01-zod-runtime-validation`: Zod 运行时数据验证与 TS 类型双向同步
