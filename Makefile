@@ -54,5 +54,10 @@ run-05:
 	pnpm exec tsx 05-concurrency-and-processes/02-cluster-multicore/main.ts
 	pnpm exec tsx 05-concurrency-and-processes/03-worker-threads-cpu-bound/main.ts
 
+run-06:
+	pnpm exec tsx 06-data-layer-and-auth/01-zod-runtime-validation/main.ts
+	pnpm exec tsx 06-data-layer-and-auth/02-sqlite-embedded-database/main.ts
+	pnpm exec tsx 06-data-layer-and-auth/03-auth-cookie-session-jwt/main.ts
+
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts

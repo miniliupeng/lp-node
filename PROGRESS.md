@@ -40,10 +40,10 @@
   - [x] `02-cluster-multicore`: 多核 CPU 算力压榨与 Cluster 集群平滑重启
   - [x] `03-worker-threads-cpu-bound`: 工作线程处理 CPU 密集型任务 (`worker_threads`)
 
-- [ ] **阶段 06: 数据治理与安全身份认证 (3/3)**
-  - [ ] `01-zod-runtime-validation`: Zod 运行时数据验证与 TS 类型双向同步
-  - [ ] `02-sqlite-embedded-database`: 原生轻量嵌入式数据库操作 (`node:sqlite`)
-  - [ ] `03-auth-cookie-session-jwt`: Cookie/Session 机制与轻量 JWT 无状态验签
+- [x] **阶段 06: 数据治理与安全身份认证 (3/3)**
+  - [x] `01-zod-runtime-validation`: Zod 运行时数据验证与 TS 类型双向同步
+  - [x] `02-sqlite-embedded-database`: 原生轻量嵌入式数据库操作 (`node:sqlite`)
+  - [x] `03-auth-cookie-session-jwt`: Cookie/Session 机制与轻量 JWT 无状态验签
 
 - [ ] **阶段 07: 现代后端框架实战入门 (2/2)**
   - [ ] `01-fastify-core-and-plugins`: Fastify 极速入门与插件封装思想
