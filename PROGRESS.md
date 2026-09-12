@@ -30,10 +30,10 @@
   - [x] `03-streams-and-backpressure`: 可读流、可写流与背压机制深入剖析
   - [x] `04-web-streams-interop`: 现代 Web Streams 与 Node.js 原生流互通
 
-- [ ] **阶段 04: 网络编程与实时通信通信 (3/3)**
-  - [ ] `01-native-http-server`: 零外部依赖原生 HTTP 服务与基础路由封装
-  - [ ] `02-tcp-socket-basics`: TCP Socket 基础与粘包半包场景初探
-  - [ ] `03-websocket-heartbeat`: WebSocket 长连接机制与心跳重连保活
+- [x] **阶段 04: 网络编程与实时通信通信 (3/3)**
+  - [x] `01-native-http-server`: 零外部依赖原生 HTTP 服务与基础路由封装
+  - [x] `02-tcp-socket-basics`: TCP Socket 基础与粘包半包场景初探
+  - [x] `03-websocket-heartbeat`: WebSocket 长连接机制与心跳重连保活
 
 - [ ] **阶段 05: 并发模型、多进程与工作线程 (3/3)**
   - [ ] `01-child-process-basics`: 子进程执行外部命令与跨进程通信 (`child_process`)

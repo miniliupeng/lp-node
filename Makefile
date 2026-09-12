@@ -44,5 +44,10 @@ run-03:
 	pnpm exec tsx 03-fs-buffer-and-streams/03-streams-and-backpressure/main.ts
 	pnpm exec tsx 03-fs-buffer-and-streams/04-web-streams-interop/main.ts
 
+run-04:
+	pnpm exec tsx 04-network-and-realtime/01-native-http-server/main.ts
+	pnpm exec tsx 04-network-and-realtime/02-tcp-socket-basics/main.ts
+	pnpm exec tsx 04-network-and-realtime/03-websocket-heartbeat/main.ts
+
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts
