@@ -6,11 +6,11 @@
 
 ## 阶段规划概览
 
-- [ ] **阶段 00: 现代工程工具链与开发基石 (4/4)**
-  - [ ] `01-node-runtime-and-pnpm`: Node.js LTS 运行时特性与 pnpm 软硬链接依赖管理
-  - [ ] `02-modern-typescript-setup`: 现代 NodeNext 模块规范与轻量运行方案
-  - [ ] `03-native-test-runner`: 原生零依赖单元测试与断言机制 (`node:test`, `node:assert`)
-  - [ ] `04-env-and-configuration`: 现代环境变量治理与双轨读取 (`process.loadEnvFile` / `dotenv`)
+- [x] **阶段 00: 现代工程工具链与开发基石 (4/4)**
+  - [x] `01-node-runtime-and-pnpm`: Node.js LTS 运行时特性与 pnpm 软硬链接依赖管理
+  - [x] `02-modern-typescript-setup`: 现代 NodeNext 模块规范与轻量运行方案
+  - [x] `03-native-test-runner`: 原生零依赖单元测试与断言机制 (`node:test`, `node:assert`)
+  - [x] `04-env-and-configuration`: 现代环境变量治理与双轨读取 (`process.loadEnvFile` / `dotenv`)
 
 - [ ] **阶段 01: TypeScript 核心类型系统进阶 (4/4)**
   - [ ] `01-primitive-and-reference`: 原始类型与对象引用模型
@@ -53,4 +53,3 @@
   - [ ] `01-mcp-server-protocol`: 打造轻量 MCP (Model Context Protocol) 标准工具服务
   - [ ] `02-sse-ai-streaming`: Server-Sent Events (SSE) 大模型流式输出推送
   - [ ] `03-capstone-pipeline-orchestration`: 综合收官：高并发流式任务编排与治理引擎
-
