@@ -59,5 +59,9 @@ run-06:
 	pnpm exec tsx 06-data-layer-and-auth/02-sqlite-embedded-database/main.ts
 	pnpm exec tsx 06-data-layer-and-auth/03-auth-cookie-session-jwt/main.ts
 
+run-07:
+	pnpm exec tsx 07-modern-web-frameworks/01-fastify-core-and-plugins/main.ts
+	pnpm exec tsx 07-modern-web-frameworks/02-nestjs-ioc-and-aop/main.ts
+
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts

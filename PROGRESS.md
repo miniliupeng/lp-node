@@ -45,9 +45,9 @@
   - [x] `02-sqlite-embedded-database`: 原生轻量嵌入式数据库操作 (`node:sqlite`)
   - [x] `03-auth-cookie-session-jwt`: Cookie/Session 机制与轻量 JWT 无状态验签
 
-- [ ] **阶段 07: 现代后端框架实战入门 (2/2)**
-  - [ ] `01-fastify-core-and-plugins`: Fastify 极速入门与插件封装思想
-  - [ ] `02-nestjs-ioc-and-aop`: NestJS 核心思想：依赖注入 (IoC) 与面向切面 (AOP)
+- [x] **阶段 07: 现代后端框架实战入门 (2/2)**
+  - [x] `01-fastify-core-and-plugins`: Fastify 极速入门与插件封装思想
+  - [x] `02-nestjs-ioc-and-aop`: NestJS 核心思想：依赖注入 (IoC) 与面向切面 (AOP)
 
 - [ ] **阶段 08: AI 时代原语与收官实战 (3/3)**
   - [ ] `01-mcp-server-protocol`: 打造轻量 MCP (Model Context Protocol) 标准工具服务
