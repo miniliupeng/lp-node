@@ -57,3 +57,55 @@ Fastify 的极速吞吐来自四大底层工程优化：
 5. **`preSerialization`**：Controller 业务处理完毕返回结果后、在被序列化为 JSON 字符串之前触发；
 6. **`onError`**：在上述任何一个环节发生抛错时触发（用于统一收集错误并格式化返回）；
 7. **`onResponse`**：响应已经完全发送给客户端后触发（用于记录请求耗时 Access Log、打点上报）。
+
+---
+
+### Q4: 请对比 Express 线性中间件模型与 Koa 洋葱模型的底层执行机制。为什么洋葱模型适合做耗时统计与异常兜底？如何手写一个简化版的 Koa `compose` 函数？
+
+#### 🎯 面试官考点
+- 考察对 Node.js 经典 Web 框架演进史与核心中间件调度算法的掌握。
+- 对比 Express 单向调用与 Koa 双向环形洋葱调用（Onion Model）的执行时序。
+- 考察手写递归与 Promise 链式包装的核心能力（`koa-compose` 原理）。
+
+#### 💡 满分回答模板
+1. **Express 线性模型 vs Koa 洋葱模型本质对比**：
+   - **Express（单向瀑布流水线）**：中间件通过回调 `next()` 单向推进，控制权一旦移交下游，上游中间件无法在下游执行完毕后“原路折返”继续执行后置代码（除非在全局监听 `res.on("finish")`，但此时上下文栈已丢失）。异步代码中的未捕获异常很容易导致请求挂起或丢失上下文。
+   - **Koa（双向嵌套洋葱模型）**：基于 `async/await`。每个中间件以 `await next()` 为分水岭，前半段为请求前置处理，进入下游中间件链；当下游所有中间件全部执行完毕后，执行权会**像剥洋葱一样原路折返回到当前中间件**，继续执行后置处理逻辑。
+2. **为什么洋葱模型天生适合“耗时统计”与“全局异常兜底”？**：
+   - **耗时统计**：在前置记录 `start = Date.now()`，接着 `await next()`，折返后直接计算 `Date.now() - start`，代码逻辑自然闭合；
+   - **统一异常兜底**：最外层中间件只需一个简单的 `try { await next(); } catch (err) { ... }`，就能天然捕获下游整条中间件链及路由处理器中抛出的所有同步与异步异常，做到 100% 不漏错。
+3. **极简且核心的 Koa `compose` 手写实现**：
+   ```typescript
+   type Middleware<T = unknown> = (
+     context: T,
+     next: () => Promise<void>
+   ) => Promise<void>;
+
+   export function compose<T>(middlewares: Middleware<T>[]) {
+     return function (context: T): Promise<void> {
+       let index = -1;
+
+       function dispatch(i: number): Promise<void> {
+         // 防止在同一个中间件中多次调用 next()
+         if (i <= index) {
+           return Promise.reject(new Error("next() called multiple times"));
+         }
+         index = i;
+
+         const fn = middlewares[i];
+         if (!fn) return Promise.resolve(); // 到底部自然 resolve
+
+         try {
+           // 递归构造下游 Promise 链
+           return Promise.resolve(fn(context, () => dispatch(i + 1)));
+         } catch (err) {
+           return Promise.reject(err);
+         }
+       }
+
+       return dispatch(0);
+     };
+   }
+   ```
+4. **Fastify 的差异化路线**：
+   - Fastify 没有照搬洋葱模型，而是采用了更清晰的**细粒度生命周期钩子（Lifecycle Hooks）**配合**前缀树路由分发**，在保证可扩展性的同时彻底榨干了 V8 运行时的性能极限。

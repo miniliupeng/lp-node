@@ -44,3 +44,66 @@
 2. **企业级生产治理铁律**：
    - **防御性监听**：在进程入口全局注册 `process.on('unhandledRejection', (reason, promise) => { ... })` 进行监控打点和日志上报；
    - **规范代码审查**：配置 ESLint 规则 `@typescript-eslint/no-floating-promises`，在静态代码检查期强制要求每个返回 Promise 的函数调用必须被 `await`、`.catch()` 或 `void` 显式标记。
+
+---
+
+### Q4: 生产环境中如果有 10,000 个异步任务需要执行，直接使用 `Promise.all()` 会导致系统崩溃（连接池耗尽/OOM），如何手写一个支持最大并发度限制的异步调度器（Promise Concurrency Pool / p-limit）？
+
+#### 🎯 面试官考点
+- 考察大厂高频手写场景题：高并发任务池、资源背压控制与连接池保护。
+- 考察对异步队列（Queue）、并发计数器（Active Count）与 Promise 闭包链式决议的精细把控。
+- 能够手写出工业级、无第三方依赖、具备通用泛型约束的并发限制函数。
+
+#### 💡 满分回答模板
+1. **直接使用 `Promise.all` 的致命缺陷**：
+   - `Promise.all(tasks.map(t => t()))` 会在**瞬间同时发起全部 10,000 个异步请求**。这会导致操作系统的文件描述符（FD）或网络套接字句柄瞬间耗尽（报 `EMFILE` / `ECONNRESET`），甚至让数据库连接池被直接打满瘫痪，或者因创建过多中间 Promise 对象引发 V8 堆内存溢出（OOM）。
+2. **手写核心设计思想（滑动窗口 / 任务队列模型）**：
+   - 维护一个内部等待队列 `queue` 和当前正在执行的任务计数器 `activeCount`；
+   - 每次提交任务时返回一个新的 Promise。当 `activeCount < limit` 时立即出队执行；否则挂起该任务等待空闲；
+   - 每个任务执行完毕（无论成功 Resolve 还是失败 Reject），`activeCount--` 并立即唤醒队列中的下一个任务执行（通过调用闭包保存的 `resolve` 触发下游运行）。
+3. **极简且健壮的手写实现（精简企业级版本）**：
+   ```typescript
+   export function pLimit(concurrency: number) {
+     if (concurrency < 1) throw new TypeError("并发度必须大于等于 1");
+     const queue: Array<() => void> = [];
+     let activeCount = 0;
+
+     const next = () => {
+       activeCount--;
+       if (queue.length > 0) {
+         const runNext = queue.shift();
+         runNext?.();
+       }
+     };
+
+     const run = async <T>(
+       fn: () => Promise<T>,
+       resolve: (val: T) => void,
+       reject: (err: unknown) => void
+     ) => {
+       activeCount++;
+       try {
+         const result = await fn();
+         resolve(result);
+       } catch (err) {
+         reject(err);
+       } finally {
+         next();
+       }
+     };
+
+     return <T>(fn: () => Promise<T>): Promise<T> => {
+       return new Promise<T>((resolve, reject) => {
+         if (activeCount < concurrency) {
+           void run(fn, resolve, reject);
+         } else {
+           queue.push(() => void run(fn, resolve, reject));
+         }
+       });
+     };
+   }
+   ```
+4. **工业生产选型与防坑指南**：
+   - 生产环境中建议直接使用经过社区上亿次下载验证的开源库 `p-limit` 或 `p-queue`；
+   - 必须在 `finally` 块中调用 `next()`，确保即便任务抛出异常，并发槽位也能被立即释放，防止队列死锁；
+   - 对于超长生命周期或海量任务队列，需注意队列本身的内存占用，必要时应结合“背压（Backpressure）”阻止上游继续无休止地向内存队列塞入新任务。
