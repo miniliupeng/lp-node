@@ -12,11 +12,11 @@
   - [x] `03-native-test-runner`: 原生零依赖单元测试与断言机制 (`node:test`, `node:assert`)
   - [x] `04-env-and-configuration`: 现代环境变量治理与双轨读取 (`process.loadEnvFile` / `dotenv`)
 
-- [ ] **阶段 01: TypeScript 核心类型系统进阶 (4/4)**
-  - [ ] `01-primitive-and-reference`: 原始类型与对象引用模型
-  - [ ] `02-narrowing-and-type-guards`: 类型收窄与自定义类型守卫 (Type Guards)
-  - [ ] `03-utility-types-practical`: 高频实用工具类型实战 (`Partial`, `Pick`, `Omit`, `Record`)
-  - [ ] `04-satisfies-and-const`: `satisfies` 运算符与 `as const` 强类型推断
+- [x] **阶段 01: TypeScript 核心类型系统进阶 (4/4)**
+  - [x] `01-primitive-and-reference`: 原始类型与对象引用模型
+  - [x] `02-narrowing-and-type-guards`: 类型收窄与自定义类型守卫 (Type Guards)
+  - [x] `03-utility-types-practical`: 高频实用工具类型实战 (`Partial`, `Pick`, `Omit`, `Record`)
+  - [x] `04-satisfies-and-const`: `satisfies` 运算符与 `as const` 强类型推断
 
 - [ ] **阶段 02: 异步基石、事件循环与异常治理 (4/4)**
   - [ ] `01-event-loop-and-timers`: Event Loop 宏任务与微任务执行顺序实战验证

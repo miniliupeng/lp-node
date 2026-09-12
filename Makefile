@@ -26,5 +26,11 @@ run-00:
 	pnpm exec tsx 00-toolchain-and-engineering-primer/03-native-test-runner/main.ts
 	pnpm exec tsx 00-toolchain-and-engineering-primer/04-env-and-configuration/main.ts
 
+run-01:
+	pnpm exec tsx 01-typescript-essential-types/01-primitive-and-reference/main.ts
+	pnpm exec tsx 01-typescript-essential-types/02-narrowing-and-type-guards/main.ts
+	pnpm exec tsx 01-typescript-essential-types/03-utility-types-practical/main.ts
+	pnpm exec tsx 01-typescript-essential-types/04-satisfies-and-const/main.ts
+
 test:
 	node --test 00-toolchain-and-engineering-primer/03-native-test-runner/main.test.ts
