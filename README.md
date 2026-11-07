@@ -80,3 +80,14 @@ make test    # 运行原生单元测试套件 (node --test)
 ```bash
 make run-all # 自动化连续运行全部 9 大阶段 30 个专题示例
 ```
+
+## 并行教程：从零到 2026 面试
+
+上面的专题实验保持原样。另一条中文主线在独立目录里，从语言和运行时讲到工程与面试题，示例只用 Node 内置模块：
+
+- 正文：[docs/node-tutorial/README.md](docs/node-tutorial/README.md)
+- 示例：[examples/node-tutorial](examples/node-tutorial)
+
+```bash
+node examples/node-tutorial/run-all.mjs
+```
